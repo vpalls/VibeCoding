@@ -57,6 +57,16 @@ def get_feedback(feedback_id: int, db: Session = Depends(get_db)):
     return fb
 
 
+@app.delete("/feedback/{feedback_id}", status_code=204)
+def delete_feedback(feedback_id: int, db: Session = Depends(get_db)):
+    """Admin deletes a feedback entry."""
+    fb = db.query(models.Feedback).filter(models.Feedback.id == feedback_id).first()
+    if not fb:
+        raise HTTPException(status_code=404, detail="Feedback not found.")
+    db.delete(fb)
+    db.commit()
+
+
 @app.post("/feedback/{feedback_id}/respond", response_model=models.FeedbackOut)
 def respond_to_feedback(
     feedback_id: int,

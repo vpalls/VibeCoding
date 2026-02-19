@@ -68,21 +68,58 @@
             <i class="bi bi-envelope me-1"></i>{{ fb.email }}
           </small>
         </div>
-        <div class="text-end">
+        <div class="text-end d-flex flex-column align-items-end gap-2">
           <!-- Star Rating -->
           <div class="text-warning fs-5">
             {% for i in range(fb.rating) %}★{% endfor %}{% for i in range(5 - fb.rating) %}<span class="text-muted">★</span>{% endfor %}
           </div>
-          <!-- Status Badge -->
-          {% if fb.response %}
-            <span class="badge badge-responded rounded-pill px-3">
-              <i class="bi bi-check-circle me-1"></i>Responded
-            </span>
-          {% else %}
-            <span class="badge badge-pending rounded-pill px-3">
-              <i class="bi bi-clock me-1"></i>Pending
-            </span>
-          {% endif %}
+          <div class="d-flex align-items-center gap-2">
+            <!-- Status Badge -->
+            {% if fb.response %}
+              <span class="badge badge-responded rounded-pill px-3">
+                <i class="bi bi-check-circle me-1"></i>Responded
+              </span>
+            {% else %}
+              <span class="badge badge-pending rounded-pill px-3">
+                <i class="bi bi-clock me-1"></i>Pending
+              </span>
+            {% endif %}
+            <!-- Delete Button -->
+            <button
+              class="btn btn-sm btn-outline-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal-{{ fb.id }}"
+              title="Delete feedback"
+            >
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Confirmation Modal -->
+      <div class="modal fade" id="deleteModal-{{ fb.id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ fb.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0">
+              <h5 class="modal-title text-danger fw-semibold" id="deleteModalLabel-{{ fb.id }}">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>Delete Feedback
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class="mb-1">Are you sure you want to delete the feedback from <strong>{{ fb.name }}</strong>?</p>
+              <p class="text-muted small mb-0">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer border-0">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <form method="POST" action="/admin/delete/{{ fb.id }}">
+                <button type="submit" class="btn btn-danger">
+                  <i class="bi bi-trash3 me-1"></i>Delete
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
 

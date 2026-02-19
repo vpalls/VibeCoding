@@ -76,5 +76,22 @@ def respond(feedback_id: int):
     return redirect(url_for("admin"))
 
 
+@app.route("/admin/delete/<int:feedback_id>", methods=["POST"])
+def delete_feedback(feedback_id: int):
+    try:
+        resp = requests.delete(
+            f"{API_BASE}/feedback/{feedback_id}",
+            timeout=5,
+        )
+        resp.raise_for_status()
+        flash("Feedback deleted successfully.", "success")
+    except requests.exceptions.ConnectionError:
+        flash("Cannot reach the backend. Make sure the FastAPI server is running.", "danger")
+    except Exception as exc:
+        flash(f"Failed to delete feedback: {exc}", "danger")
+
+    return redirect(url_for("admin"))
+
+
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
