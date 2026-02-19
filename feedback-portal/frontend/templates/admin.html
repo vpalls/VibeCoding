@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard – Customer Feedback Portal{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="fw-bold mb-0">
+      <i class="bi bi-person-gear text-primary me-2"></i>Admin Dashboard
+    </h2>
+    <p class="text-muted mb-0">Review and respond to customer feedback</p>
+  </div>
+  <span class="badge bg-primary fs-6">
+    {{ feedbacks | length }} entr{{ "y" if feedbacks | length == 1 else "ies" }}
+  </span>
+</div>
+
+{% if not feedbacks %}
+  <!-- Empty State -->
+  <div class="card p-5 text-center">
+    <i class="bi bi-inbox text-muted" style="font-size: 4rem;"></i>
+    <h4 class="mt-3 text-muted">No feedback yet</h4>
+    <p class="text-muted">Customer submissions will appear here.</p>
+    <a href="/" class="btn btn-outline-primary mt-2">
+      <i class="bi bi-pencil-square me-1"></i>Go to Feedback Form
+    </a>
+  </div>
+{% else %}
+  <!-- Summary Stats -->
+  <div class="row g-3 mb-4">
+    {% set total = feedbacks | length %}
+    {% set responded = feedbacks | selectattr("response") | list | length %}
+    {% set pending = total - responded %}
+    {% set avg_rating = (feedbacks | map(attribute="rating") | sum / total) | round(1) if total > 0 else 0 %}
+
+    <div class="col-sm-4">
+      <div class="card text-center p-3">
+        <div class="fs-2 fw-bold text-primary">{{ total }}</div>
+        <div class="text-muted small">Total Feedback</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center p-3">
+        <div class="fs-2 fw-bold text-warning">{{ pending }}</div>
+        <div class="text-muted small">Awaiting Response</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card text-center p-3">
+        <div class="fs-2 fw-bold text-success">{{ avg_rating }} ★</div>
+        <div class="text-muted small">Avg. Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback List -->
+  {% for fb in feedbacks %}
+  <div class="card mb-3">
+    <div class="card-body">
+
+      <!-- Header Row -->
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+        <div>
+          <h5 class="mb-0 fw-semibold">
+            <i class="bi bi-person-circle text-secondary me-1"></i>{{ fb.name }}
+          </h5>
+          <small class="text-muted">
+            <i class="bi bi-envelope me-1"></i>{{ fb.email }}
+          </small>
+        </div>
+        <div class="text-end">
+          <!-- Star Rating -->
+          <div class="text-warning fs-5">
+            {% for i in range(fb.rating) %}★{% endfor %}{% for i in range(5 - fb.rating) %}<span class="text-muted">★</span>{% endfor %}
+          </div>
+          <!-- Status Badge -->
+          {% if fb.response %}
+            <span class="badge badge-responded rounded-pill px-3">
+              <i class="bi bi-check-circle me-1"></i>Responded
+            </span>
+          {% else %}
+            <span class="badge badge-pending rounded-pill px-3">
+              <i class="bi bi-clock me-1"></i>Pending
+            </span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Feedback Message -->
+      <div class="bg-light rounded p-3 mb-3">
+        <p class="mb-0">{{ fb.message }}</p>
+      </div>
+      <small class="text-muted">
+        <i class="bi bi-calendar3 me-1"></i>Submitted: {{ fb.created_at[:16].replace("T", " ") }}
+      </small>
+
+      <!-- Existing Response -->
+      {% if fb.response %}
+      <div class="mt-3 border-start border-success border-3 ps-3">
+        <small class="text-success fw-semibold">
+          <i class="bi bi-reply-fill me-1"></i>Your Response
+          {% if fb.responded_at %}
+            <span class="text-muted fw-normal">· {{ fb.responded_at[:16].replace("T", " ") }}</span>
+          {% endif %}
+        </small>
+        <p class="mb-0 mt-1">{{ fb.response }}</p>
+      </div>
+      {% endif %}
+
+      <!-- Response Form -->
+      <form method="POST" action="/admin/respond/{{ fb.id }}" class="mt-3">
+        <label class="form-label fw-semibold small">
+          <i class="bi bi-reply me-1 text-primary"></i>
+          {{ "Update Response" if fb.response else "Write a Response" }}
+        </label>
+        <div class="input-group">
+          <textarea
+            class="form-control"
+            name="response"
+            rows="2"
+            placeholder="Type your response here..."
+            required
+          >{{ fb.response or "" }}</textarea>
+          <button class="btn btn-primary" type="submit">
+            <i class="bi bi-send-fill"></i>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
+{% endblock %}
