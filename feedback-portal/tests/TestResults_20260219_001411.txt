@@ -1,0 +1,86 @@
+
+══════════════════════════════════════════════════════════════════════════
+  Customer Feedback Portal  –  Selenium UI Test Results
+══════════════════════════════════════════════════════════════════════════
+  Date / Time  :  2026-02-19  00:14:11
+  Base URL     :  http://localhost:5000
+  Test Suites  :  2  (TestFeedbackPage, TestAdminPage)
+  Output file  :  TestResults_20260219_001411.txt
+══════════════════════════════════════════════════════════════════════════
+
+
+┌────────────────────────────────────────────────────────────────────────┐
+│  SUITE 1 of 2  ·  TestFeedbackPage                                     │
+│  Customer Feedback Submission Page                                     │
+│  Route: GET / POST /                                                   │
+└────────────────────────────────────────────────────────────────────────┘
+
+  [ PASS ]  TC_F01    Feedback page should load without a 4xx/5xx erro (0.6s)
+  [ PASS ]  TC_F02    Page <title> must contain the word 'Feedback'. (0.0s)
+  [ PASS ]  TC_F03    H2 must read 'Share Your Feedback'.           (0.3s)
+  [ PASS ]  TC_F04    Name, email, and message fields must all be disp (0.1s)
+  [ PASS ]  TC_F05    Star-rating widget must render exactly 5 clickab (0.3s)
+  [ PASS ]  TC_F06    Submit button must be visible and enabled.    (0.1s)
+  [ PASS ]  TC_F07    Clicking the Admin nav-link must navigate the br (2.4s)
+  [ PASS ]  TC_F08    Clicking the star-3 label should select the star (0.1s)
+  [ PASS ]  TC_F09    A fully-filled form submission must show a green (2.6s)
+  [ PASS ]  TC_F10    After POST-redirect-GET the name field must be e (2.6s)
+  [ PASS ]  TC_F11    Submit a third entry so the Admin test suite has (2.7s)
+
+  ────────────────────────────────────────────────────────────────────────
+  Suite 1 Result  ──  Total: 11   Passed: 11   Failed: 0   Errors: 0   Skipped: 0
+  ────────────────────────────────────────────────────────────────────────
+
+┌────────────────────────────────────────────────────────────────────────┐
+│  SUITE 2 of 2  ·  TestAdminPage                                        │
+│  Admin Response Dashboard                                              │
+│  Route: GET /admin                                                     │
+└────────────────────────────────────────────────────────────────────────┘
+
+  [ PASS ]  TC_A01    Admin page must load without a 4xx/5xx error. (2.6s)
+  [ PASS ]  TC_A02    Page <title> must contain 'Admin'.            (2.1s)
+  [ PASS ]  TC_A03    H2 must read 'Admin Dashboard'.               (2.1s)
+  [ PASS ]  TC_A04    Three summary cards (Total / Pending / Avg Ratin (2.1s)
+  [ PASS ]  TC_A05    At least one feedback card must be rendered.  (2.1s)
+  [ FAIL ]  TC_A06    Every feedback card must display a non-empty cus (2.1s)
+              ↳  AssertionError: '' is not true : Found an H5 with empty cus
+                 tomer name
+  [ PASS ]  TC_A07    Star symbols (★) must appear in the rendered pag (2.1s)
+  [ PASS ]  TC_A08    At least one 'Pending' badge must be visible for (2.1s)
+  [ PASS ]  TC_A09    Every feedback card must include a response text (2.1s)
+  [ PASS ]  TC_A10    Every feedback card must include a delete (trash (2.1s)
+  [ PASS ]  TC_A11    Admin typing a response and clicking Send must s (6.5s)
+  [ PASS ]  TC_A12    After TC_A11, the entry must display a 'Responde (2.4s)
+  [ PASS ]  TC_A13    Clicking the trash icon must open the Bootstrap  (2.6s)
+  [ PASS ]  TC_A14    Clicking Cancel must close the modal and leave e (2.7s)
+  [ FAIL ]  TC_A15    Confirming deletion must decrease the feedback c (2.7s)
+              ↳  AssertionError: 4 != 5 : Expected 4 cards after delete, fou
+                 nd 5
+
+══════════════════════════════════════════════════════════════════════════
+  FINAL SUMMARY
+══════════════════════════════════════════════════════════════════════════
+  Total Tests  :  26
+  Passed       :  24
+  Failed       :  2
+  Errors       :  0
+  Skipped      :  0
+  Duration     :  58.9s
+  Result       :  SOME TESTS FAILED  ✗
+══════════════════════════════════════════════════════════════════════════
+
+  ── Failed / Errored Tests ───────────────────────────────────────────────
+
+  1. [FAIL]  __main__.TestAdminPage.test_TC_A06_card_shows_customer_name
+         File "c:\Suresh\Dev\Claude\VibeCoding\feedback-portal\tests\test_ui.py", line 323, in test_TC_A06_card_shows_customer_name
+         self.assertTrue(el.text.strip(), "Found an H5 with empty customer name")
+         AssertionError: '' is not true : Found an H5 with empty customer name
+
+  2. [FAIL]  __main__.TestAdminPage.test_TC_A15_confirm_delete_removes_entry
+         File "c:\Suresh\Dev\Claude\VibeCoding\feedback-portal\tests\test_ui.py", line 429, in test_TC_A15_confirm_delete_removes_entry
+         self.assertEqual(before - 1, after,
+         AssertionError: 4 != 5 : Expected 4 cards after delete, found 5
+
+══════════════════════════════════════════════════════════════════════════
+  Results saved to: c:\Suresh\Dev\Claude\VibeCoding\feedback-portal\tests\TestResults_20260219_001411.txt
+══════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,89 @@
+
+========================================================================
+  Customer Feedback Portal – Selenium UI Test Results
+========================================================================
+  Date/Time  : 2026-02-19  00:06:20
+  Base URL   : http://localhost:5000
+  Output file: TestResults_20260219_000620.txt
+========================================================================
+
+test_TC_F01_page_loads (__main__.TestFeedbackPage.test_TC_F01_page_loads)
+Feedback page should load without a 4xx/5xx error. ... ok
+test_TC_F02_page_title_contains_feedback (__main__.TestFeedbackPage.test_TC_F02_page_title_contains_feedback)
+Page <title> must contain the word 'Feedback'. ... ok
+test_TC_F03_heading_text (__main__.TestFeedbackPage.test_TC_F03_heading_text)
+H2 must read 'Share Your Feedback'. ... ok
+test_TC_F04_all_form_fields_visible (__main__.TestFeedbackPage.test_TC_F04_all_form_fields_visible)
+Name, email, and message fields must all be displayed. ... ok
+test_TC_F05_star_rating_has_five_labels (__main__.TestFeedbackPage.test_TC_F05_star_rating_has_five_labels)
+Star-rating widget must render exactly 5 clickable labels. ... ok
+test_TC_F06_submit_button_enabled (__main__.TestFeedbackPage.test_TC_F06_submit_button_enabled)
+Submit button must be visible and enabled. ... ok
+test_TC_F07_admin_nav_link_navigates (__main__.TestFeedbackPage.test_TC_F07_admin_nav_link_navigates)
+Clicking the Admin nav-link must navigate the browser to /admin. ... ok
+test_TC_F08_star_rating_click_selects_radio (__main__.TestFeedbackPage.test_TC_F08_star_rating_click_selects_radio)
+Clicking the star-3 label should select the star3 radio input. ... ok
+test_TC_F09_valid_submission_shows_success_alert (__main__.TestFeedbackPage.test_TC_F09_valid_submission_shows_success_alert)
+A fully-filled form submission must show a green 'Thank you' alert. ... ok
+test_TC_F10_form_is_empty_after_redirect (__main__.TestFeedbackPage.test_TC_F10_form_is_empty_after_redirect)
+After POST-redirect-GET the name field must be empty (PRG pattern). ... ok
+test_TC_F11_second_submission_seeds_admin_data (__main__.TestFeedbackPage.test_TC_F11_second_submission_seeds_admin_data)
+Submit a third entry so the Admin test suite has enough data. ... ok
+test_TC_A01_page_loads (__main__.TestAdminPage.test_TC_A01_page_loads)
+Admin page must load without a 4xx/5xx error. ... ok
+test_TC_A02_page_title_contains_admin (__main__.TestAdminPage.test_TC_A02_page_title_contains_admin)
+Page <title> must contain 'Admin'. ... ok
+test_TC_A03_heading_text (__main__.TestAdminPage.test_TC_A03_heading_text)
+H2 must read 'Admin Dashboard'. ... ok
+test_TC_A04_three_stat_cards_rendered (__main__.TestAdminPage.test_TC_A04_three_stat_cards_rendered)
+Three summary cards (Total / Pending / Avg Rating) must be visible. ... ok
+test_TC_A05_feedback_entries_present (__main__.TestAdminPage.test_TC_A05_feedback_entries_present)
+At least one feedback card must be rendered. ... ok
+test_TC_A06_card_shows_customer_name (__main__.TestAdminPage.test_TC_A06_card_shows_customer_name)
+Every feedback card must display a non-empty customer name in H5. ... FAIL
+test_TC_A07_star_symbols_in_page (__main__.TestAdminPage.test_TC_A07_star_symbols_in_page)
+Star symbols (★) must appear in the rendered page source. ... ok
+test_TC_A08_pending_badge_visible (__main__.TestAdminPage.test_TC_A08_pending_badge_visible)
+At least one 'Pending' badge must be visible for unresponded entries. ... ok
+test_TC_A09_response_textarea_per_card (__main__.TestAdminPage.test_TC_A09_response_textarea_per_card)
+Every feedback card must include a response textarea. ... ok
+test_TC_A10_delete_button_per_card (__main__.TestAdminPage.test_TC_A10_delete_button_per_card)
+Every feedback card must include a delete (trash) button. ... ok
+test_TC_A11_admin_can_submit_response (__main__.TestAdminPage.test_TC_A11_admin_can_submit_response)
+Admin typing a response and clicking Send must show a success alert. ... ok
+test_TC_A12_responded_badge_after_response (__main__.TestAdminPage.test_TC_A12_responded_badge_after_response)
+After TC_A11, the entry must display a 'Responded' badge. ... ok
+test_TC_A13_delete_button_opens_modal (__main__.TestAdminPage.test_TC_A13_delete_button_opens_modal)
+Clicking the trash icon must open the Bootstrap confirmation modal. ... ok
+test_TC_A14_cancel_delete_closes_modal (__main__.TestAdminPage.test_TC_A14_cancel_delete_closes_modal)
+Clicking Cancel must close the modal and leave entry count unchanged. ... ok
+test_TC_A15_confirm_delete_removes_entry (__main__.TestAdminPage.test_TC_A15_confirm_delete_removes_entry)
+Confirming deletion must decrease the feedback card count by one. ... ok
+
+======================================================================
+FAIL: test_TC_A06_card_shows_customer_name (__main__.TestAdminPage.test_TC_A06_card_shows_customer_name)
+Every feedback card must display a non-empty customer name in H5.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "c:\Suresh\Dev\Claude\VibeCoding\feedback-portal\tests\test_ui.py", line 321, in test_TC_A06_card_shows_customer_name
+    self.assertTrue(el.text.strip(), "Found an H5 with empty customer name")
+AssertionError: '' is not true : Found an H5 with empty customer name
+
+----------------------------------------------------------------------
+Ran 26 tests in 64.788s
+
+FAILED (failures=1)
+
+========================================================================
+  SUMMARY
+========================================================================
+  Tests run : 26
+  Passed    : 25
+  Failures  : 1
+  Errors    : 0
+  Skipped   : 0
+  Result    : SOME TESTS FAILED ✗
+========================================================================
+
+  Results saved to: c:\Suresh\Dev\Claude\VibeCoding\feedback-portal\tests\TestResults_20260219_000620.txt
+

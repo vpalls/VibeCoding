@@ -4,3 +4,7 @@ sqlalchemy==2.0.36
 pydantic==2.10.3
 flask==3.1.0
 requests==2.32.3
+
+# UI testing
+selenium==4.27.1
+webdriver-manager==4.0.2
