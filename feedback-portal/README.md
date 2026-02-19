@@ -29,9 +29,16 @@ pip install -r requirements.txt
 
 ### 2. Start the FastAPI backend (Terminal 1)
 
+**Option A:** Using uvicorn command
 ```bash
 cd backend
 uvicorn main:app --reload --port 8000
+```
+
+**Option B:** Direct Python execution
+```bash
+cd backend
+python main.py
 ```
 
 ### 3. Start the Flask frontend (Terminal 2)
@@ -73,3 +80,31 @@ feedback-portal/
 | `GET`  | `/feedback` | List all feedback |
 | `GET`  | `/feedback/{id}` | Get single feedback |
 | `POST` | `/feedback/{id}/respond` | Add/update admin response |
+| `DELETE` | `/feedback/{id}` | Delete a feedback entry |
+
+## Testing
+
+### Running Selenium UI Tests
+
+The suite includes 26 Selenium-based UI tests validating both the customer form and admin dashboard.
+
+**Prerequisites:**
+```bash
+pip install selenium webdriver-manager
+```
+
+**Start all services first:**
+1. FastAPI backend on port 8000
+2. Flask frontend on port 5000
+
+**Run the tests:**
+```bash
+cd feedback-portal
+python tests/test_ui.py
+```
+
+**Test results** are saved to `tests/TestResults_YYYYMMDD_HHMMSS.txt`
+
+Test Coverage:
+- **TC_F01–TC_F11** — Customer feedback form (submission, validation, UI interactions)
+- **TC_A01–TC_A15** — Admin dashboard (stats, feedback display, responding, deletion)
